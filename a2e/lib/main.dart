@@ -1,4 +1,3 @@
-import 'package:a2e/utils/colors.dart';
 import 'package:a2e/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,13 +11,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       home: HomeScreen(),
-      theme: ThemeData(
-        primaryColor: mainColor,
-        accentColor: secondaryColor,
-        backgroundColor: whiteColor,
-        textSelectionColor: blackColor,
-        brightness: Brightness.light,
-      ),
     );
   }
 }

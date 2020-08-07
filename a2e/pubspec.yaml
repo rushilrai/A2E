@@ -31,6 +31,7 @@ dependencies:
   get: ^3.4.1
   camera: ^0.5.8+2
   tflite: ^1.1.1
+  sliding_up_panel: ^1.0.2
   path: ^1.7.0
   path_provider: ^1.6.11
 
@@ -53,9 +54,10 @@ flutter:
   assets:
     - assets/model/phone_VGG16--88--08-03-03-29.tflite
     - assets/model/labels.txt
-    - assets/model/testA.png
-    - assets/model/mobilenet_v1_1.0_224_quant.tflite
-    - assets/model/labels_mobilenet_quant_v1_224.txt
+    - assets/model/phone_VGG16--89--08-03-01-46.tflite
+    - assets/model/phone_VGG16--92--08-03-03-11.tflite
+    - assets/model/phone_VGG16--92--08-02-23-36.tflite
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

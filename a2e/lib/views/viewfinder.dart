@@ -27,7 +27,7 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
     final firstCamera = cameras[0];
-    _controller = CameraController(firstCamera, ResolutionPreset.high);
+    _controller = CameraController(firstCamera, ResolutionPreset.ultraHigh);
     _initializeControllerFuture = _controller.initialize().then((_) async {
       if (!mounted) {
         return;
@@ -35,8 +35,9 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
       setState(() {
         isCameraReady = true;
       });
+
       String res = await Tflite.loadModel(
-        model: "assets/model/phone_VGG16--88--08-03-03-29.tflite",
+        model: "assets/model/phone_VGG16--92--08-02-23-36.tflite",
         labels: "assets/model/labels.txt",
       );
       print('start');
@@ -84,46 +85,84 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: whiteColor,
       ),
       child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: (isCameraReady)
-              ? Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 2 / 3,
-                      child: (isCameraReady)
-                          ? CameraPreview(_controller)
-                          : Container(),
-                    ),
-                    Expanded(
-                      child: Hero(
-                        tag: 'button',
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
-                          color: Theme.of(context).backgroundColor,
-                          width: displayWidth(context),
-                          child: Center(
-                            child: Text(
-                              label,
-                              style: TextStyle(
-                                color: Theme.of(context).accentColor,
-                                fontFamily: 'Comfortaa',
-                                fontWeight: FontWeight.w800,
-                                fontSize: displayWidth(context) * 0.14,
-                              ),
-                            ),
+          appBar: AppBar(
+            backgroundColor: secondaryColor,
+            automaticallyImplyLeading: true,
+            leading: Hero(
+              tag: 'back',
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: mainColor,
+                ),
+              ),
+            ),
+          ),
+          backgroundColor: whiteColor,
+          body: Stack(
+            children: [
+              Column(
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: (isCameraReady)
+                        ? CameraPreview(_controller)
+                        : Container(),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: AnimatedContainer(
+                      decoration: BoxDecoration(
+                        color: whiteColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      duration: Duration(milliseconds: 200),
+                      width: displayWidth(context),
+                      child: Center(
+                        child: Text(
+                          label,
+                          style: TextStyle(
+                            color: mainColor,
+                            fontFamily: 'Comfortaa',
+                            fontWeight: FontWeight.w800,
+                            fontSize: displayWidth(context) * 0.14,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                )
-              : Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
                   ),
-                )),
+                ],
+              ),
+              TweenAnimationBuilder(
+                tween: Tween<double>(begin: displayHeight(context), end: 0),
+                duration: Duration(
+                  milliseconds: 300,
+                ),
+                builder: (context, value, child) {
+                  return Center(
+                    child: Hero(
+                      tag: 'button',
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        duration: Duration(milliseconds: 200),
+                        width: value,
+                        height: value,
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          )),
     );
   }
 }
