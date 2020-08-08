@@ -38,7 +38,21 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.5
+  flutter_native_splash: ^0.1.9
 
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/images/A2E.png"
+  image_path_android: "assets/images/A2E.png"
+  adaptive_icon_background: "assets/images/A2Ebg.png"
+  adaptive_icon_foreground: "assets/images/A2E.png"
+
+flutter_native_splash:
+  image: assets/images/A2Etransparent.png
+  color: "2e4057"
+  android_disable_fullscreen: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,6 +72,7 @@ flutter:
     - assets/model/phone_VGG16--92--08-03-03-11.tflite
     - assets/model/phone_VGG16--92--08-02-23-36.tflite
     - assets/images/
+    - assets/signs/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

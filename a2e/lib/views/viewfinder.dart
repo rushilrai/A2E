@@ -79,6 +79,8 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
     super.dispose();
   }
 
+  bool show = false;
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -110,13 +112,16 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
               Column(
                 children: [
                   Flexible(
-                    flex: 3,
+                    flex: 5,
                     child: (isCameraReady)
-                        ? CameraPreview(_controller)
+                        ? Hero(
+                            tag: 'button',
+                            child: CameraPreview(_controller),
+                          )
                         : Container(),
                   ),
                   Flexible(
-                    flex: 1,
+                    flex: 2,
                     child: AnimatedContainer(
                       decoration: BoxDecoration(
                         color: whiteColor,
@@ -124,43 +129,50 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
                       ),
                       duration: Duration(milliseconds: 200),
                       width: displayWidth(context),
-                      child: Center(
-                        child: Text(
-                          label,
-                          style: TextStyle(
-                            color: mainColor,
-                            fontFamily: 'Comfortaa',
-                            fontWeight: FontWeight.w800,
-                            fontSize: displayWidth(context) * 0.14,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Position ASL signs in the viewfinder above to get the English equivalent below :',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: mainColor,
+                                    fontFamily: 'Comfortaa',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: displayWidth(context) * 0.04,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                label,
+                                style: TextStyle(
+                                  color: mainColor,
+                                  fontFamily: 'Comfortaa',
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: displayWidth(context) * 0.14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
-              TweenAnimationBuilder(
-                tween: Tween<double>(begin: displayHeight(context), end: 0),
-                duration: Duration(
-                  milliseconds: 300,
-                ),
-                builder: (context, value, child) {
-                  return Center(
-                    child: Hero(
-                      tag: 'button',
-                      child: AnimatedContainer(
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        duration: Duration(milliseconds: 200),
-                        width: value,
-                        height: value,
-                      ),
-                    ),
-                  );
-                },
-              )
             ],
           )),
     );
