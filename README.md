@@ -14,3 +14,12 @@ Screenshots of the UI and functioning provided below ->
 
 <b>On Click of the Live Translate Button, the following viewfinder is presented, with a Live Translation Panel:
 <img src="Screenshots/c.png" width=400> <img src="Screenshots/s.png" width=400>
+  
+Contributors to the Project: 
+<br>
+<a href= 'https://github.com/rushilrai'>Rushil Rai</a>
+<br>
+<a href= 'https://github.com/h-r-v'>Harsh Raj Verma</a>
+<br>
+<a href= 'https://github.com/vedantagarwal4'>Vedant Agarwal</a>
+
