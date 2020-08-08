@@ -12,5 +12,5 @@ Screenshots of the UI and functioning provided below ->
 <b>Home Screen with the Dictionary for reference:</b>
 <br><img src="Screenshots/home.png" width=400>
 
-<b>On Click of the Live Translate Button, the following viewfinder is presented, with a Live Translation Panel right below it: </b>
+<b>On Click of the Live Translate Button, the following viewfinder is presented, with a Live Translation Panel:
 <img src="Screenshots/c.png" width=400> <img src="Screenshots/s.png" width=400>
