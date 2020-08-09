@@ -62,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 panelOpen = false;
               });
             },
-            minHeight: displayWidth(context) * 1.4,
-            maxHeight: displayWidth(context) * 1.94,
+            minHeight: displayHeight(context) * 0.65,
+            maxHeight: displayHeight(context) * 0.95,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(60),
             ),
@@ -113,10 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 5,
                     ),
-                    Container(
-                      height: displayWidth(context) * 1.74,
+                    Expanded(
                       child: ListView(
                         shrinkWrap: true,
                         physics: (panelOpen)
