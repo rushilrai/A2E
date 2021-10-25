@@ -3,6 +3,7 @@ import 'package:a2e/utils/sizes.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
 
 class ViewfinderPage extends StatefulWidget {
@@ -89,92 +90,104 @@ class _ViewfinderPageState extends State<ViewfinderPage> {
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: whiteColor,
       ),
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: secondaryColor,
-            automaticallyImplyLeading: true,
-            leading: Hero(
-              tag: 'back',
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: mainColor,
+      child: WillPopScope(
+        onWillPop: () async {
+          await _controller?.dispose()?.then(
+                (context) => Get.back(),
+              );
+          return true;
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: secondaryColor,
+              automaticallyImplyLeading: true,
+              leading: Hero(
+                tag: 'back',
+                child: GestureDetector(
+                  onTap: () {
+                    _controller?.dispose()?.then(
+                          (context) => Get.back(),
+                        );
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: mainColor,
+                  ),
                 ),
               ),
             ),
-          ),
-          backgroundColor: whiteColor,
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  Flexible(
-                    flex: 5,
-                    child: (isCameraReady)
-                        ? Hero(
-                            tag: 'button',
-                            child: CameraPreview(_controller),
-                          )
-                        : Container(),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: AnimatedContainer(
-                      decoration: BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      duration: Duration(milliseconds: 200),
-                      width: displayWidth(context),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'Position ASL signs in the viewfinder above to get the English equivalent below :',
-                                  textAlign: TextAlign.center,
+            backgroundColor: whiteColor,
+            body: Stack(
+              children: [
+                Column(
+                  children: [
+                    Flexible(
+                      flex: 5,
+                      child: (isCameraReady)
+                          ? Hero(
+                              tag: 'button',
+                              child: Container(
+                                  width: double.infinity,
+                                  child: CameraPreview(_controller)),
+                            )
+                          : Container(),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: AnimatedContainer(
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        duration: Duration(milliseconds: 200),
+                        width: displayWidth(context),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Position ASL signs in the viewfinder above to get the English equivalent below :',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: mainColor,
+                                      fontFamily: 'Comfortaa',
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: displayWidth(context) * 0.04,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  label,
                                   style: TextStyle(
                                     color: mainColor,
                                     fontFamily: 'Comfortaa',
                                     fontWeight: FontWeight.w800,
-                                    fontSize: displayWidth(context) * 0.04,
+                                    fontSize: displayWidth(context) * 0.14,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                label,
-                                style: TextStyle(
-                                  color: mainColor,
-                                  fontFamily: 'Comfortaa',
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: displayWidth(context) * 0.14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          )),
+                  ],
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

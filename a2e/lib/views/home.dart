@@ -1179,7 +1179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: RaisedButton(
+                            child: ElevatedButton(
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment:
@@ -1197,14 +1197,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
-                              splashColor: mainColor,
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(mainColor),
+                                foregroundColor:
+                                    MaterialStateProperty.all(mainColor),
+                              ),
+                              // splashColor: mainColor,
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   SlideRightRoute(page: ViewfinderPage()),
                                 );
                               },
-                              color: mainColor,
+                              // color: mainColor,
                             ),
                           ),
                         ),
