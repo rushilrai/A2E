@@ -5,7 +5,7 @@ The application uses a TFLite model to enable real time deciphering of the Ameri
 The Repository for the Model used in the Conversion is <a href= 'https://github.com/h-r-v/A2E-Model'>A2E-Model</a>. <br>
 It contains of all the Data used for the Model, and also contains the methodology and approach used in the creation of the mentioned Model.
 
-Download the [APK](https://github.com/rushilrai/A2E/blob/master/APK/A2E.apk) for Android.
+Download the [APK](https://play.google.com/store/apps/details?id=com.rr.a2e) for Android.
 
 Screenshots of the UI and functioning provided below ->
 
